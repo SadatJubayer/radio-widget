@@ -1,6 +1,6 @@
 import { IStation } from 'interfaces/Station.interface';
 import { createContext, useState } from 'react';
-import { getStaticStations } from 'utils/getStaticStations';
+import { getStaticStations } from 'utils/staticStations';
 
 interface IContextProps {
   loading: boolean;
