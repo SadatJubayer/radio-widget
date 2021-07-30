@@ -17,13 +17,17 @@
   box-sizing: border-box;
 }
 
-/* Body Styles */
+/* Body styles */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--background);
   color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Main app Styles */
 .App {
   min-height: 100vh;
   display: grid;
