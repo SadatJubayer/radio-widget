@@ -1,9 +1,12 @@
 import RadioWidget from 'components/RadioWidget';
+import { StationProvider } from 'context/StationContext';
 
 function App() {
   return (
     <div className='App'>
-      <RadioWidget />
+      <StationProvider>
+        <RadioWidget />
+      </StationProvider>
     </div>
   );
 }

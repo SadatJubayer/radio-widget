@@ -1,38 +1,26 @@
 import backArrow from 'assets/images/back-arrow.png';
 import switchIcon from 'assets/images/switch.png';
+import Spinner from 'components/Spinner/Spinner';
 import StationList from 'components/StationList';
+import { useStation } from 'hooks/useStations';
 import { IStation } from 'interfaces/Station.interface';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styles from './radioWidget.module.css';
 
-const staticData: IStation[] = [
-  {
-    id: '1',
-    name: 'Putin FM',
-    frequency: '66,6',
-    cover: '/images/cover.png',
-  },
-  {
-    id: '2',
-    name: 'Dribble FM',
-    frequency: '101,2',
-    cover: '/images/cover.png',
-  },
-  {
-    id: '3',
-    name: 'Doge FM',
-    frequency: '99,4',
-    cover: '/images/cover.png',
-  },
-];
-
 const RadioWidget = () => {
+  const { loading, stations, fetchStations } = useStation();
+
   const [active, setActive] = useState<IStation | null>(null);
 
   const handleActive = (station: IStation) => {
     setActive(station);
   };
+
+  useEffect(() => {
+    fetchStations(); // fetch stations on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.card}>
@@ -41,7 +29,8 @@ const RadioWidget = () => {
         <div className={styles.title}>Stations</div>
         <img onClick={() => setActive(null)} src={switchIcon} alt='switch' className={styles.icon} />
       </div>
-      <StationList active={active} onClick={handleActive} stations={staticData} />
+      {loading ? <Spinner /> : <StationList active={active} handleActive={handleActive} stations={stations} />}
+
       <div className={styles.footer}>
         {active && (
           <>

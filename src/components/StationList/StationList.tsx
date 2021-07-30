@@ -5,16 +5,19 @@ import styles from './stationList.module.css';
 type Props = {
   stations: IStation[];
   active: IStation | null;
-  onClick: (station: IStation) => void;
+  handleActive: (station: IStation) => void;
 };
 
-const StationList = ({ stations, active, onClick }: Props) => {
+const StationList = ({ stations, active, handleActive }: Props) => {
   return (
     <div className={styles.container}>
-      {stations.length === 0 && <p>No Stations found ☹</p>}
-      {stations.map((station) => (
-        <Station isActive={active === station} key={station.id} onClick={() => onClick(station)} {...station} />
-      ))}
+      {!stations?.length ? (
+        <p>No Stations found ☹</p>
+      ) : (
+        stations?.map((station) => (
+          <Station key={station.id} isActive={active === station} onClick={handleActive} station={station} />
+        ))
+      )}
     </div>
   );
 };
