@@ -4,7 +4,7 @@ import Spinner from 'components/Spinner/Spinner';
 import StationList from 'components/StationList';
 import { useStation } from 'hooks/useStations';
 import { IStation } from 'interfaces/Station.interface';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import styles from './radioWidget.module.css';
 
@@ -13,14 +13,18 @@ const RadioWidget = () => {
 
   const [active, setActive] = useState<IStation | null>(null);
 
-  const handleActive = (station: IStation) => {
-    setActive(station);
+  const toggleActive = (station: IStation) => {
+    station === active ? setActive(null) : setActive(station);
   };
 
-  useEffect(() => {
-    fetchStations(); // fetch stations on mount
+  const loadStations = useCallback(() => {
+    fetchStations();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    loadStations();
+  }, [loadStations]);
 
   return (
     <div className={styles.card}>
@@ -29,7 +33,7 @@ const RadioWidget = () => {
         <div className={styles.title}>Stations</div>
         <img onClick={() => setActive(null)} src={switchIcon} alt='switch' className={styles.icon} />
       </div>
-      {loading ? <Spinner /> : <StationList active={active} handleActive={handleActive} stations={stations} />}
+      {loading ? <Spinner /> : <StationList active={active} handleActive={toggleActive} stations={stations} />}
 
       <div className={styles.footer}>
         {active && (

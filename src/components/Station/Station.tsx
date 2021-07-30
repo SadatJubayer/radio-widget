@@ -14,7 +14,11 @@ const Station = ({ station, isActive, onClick }: Props) => {
   const { name, cover, frequency } = station;
 
   return (
-    <div onClick={() => onClick(station)} className={`${styles.container} ${isActive && styles.active}`}>
+    <div
+      onClick={() => onClick(station)}
+      className={`${styles.stationCard} ${isActive && styles.active}`}
+      data-testid='station'
+    >
       <div className={styles.detail}>
         <img className={styles.button} src={minus} alt='Previous' />
         <img className={styles.cover} src={cover} alt='Cover' />

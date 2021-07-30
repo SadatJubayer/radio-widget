@@ -1,6 +1,6 @@
 @import 'assets/styles/global.css';
 
-.container {
+.stationCard {
   display: flex;
   flex-direction: column;
   width: 95%;
