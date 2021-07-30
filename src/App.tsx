@@ -1,7 +1,9 @@
+import RadioWidget from 'components/RadioWidget';
+
 function App() {
   return (
     <div className='App'>
-      <h2>Radio Widget Init</h2>
+      <RadioWidget />
     </div>
   );
 }
